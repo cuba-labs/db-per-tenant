@@ -4,7 +4,7 @@
 
 This application demonstrates an approach to implement a multi-tenant application with separate databases containing domain data for each tenant. Information about users and security settings are stored in a shared database. After a user logs in, the application determines a tenant database for the user and all subsequent requests for domain entities go to this database. 
 
-The implementation is based on the following:
+The implementation is based on the following principles:
 
 * Domain entities are mapped to tables located in an additional data store.
 
@@ -30,7 +30,7 @@ The implementation is based on the following:
 
 * In Studio, edit *Project properties*, go to *Advanced* tab and add new dependency for *Core Module*: `org.apache.commons:commons-dbcp2:2.1.1`. After closing the page Studio re-creates IDE project files. 
 
-* Open the project in IDE. Create `com.haulmont.multitenancy` package in your project's `core` module and copy `TenantsRoutingDatasource` class from this sample to it.
+* Open the project in IDE. Create `com.haulmont.multitenancy` package in your project's `core` module and copy [TenantsRoutingDatasource](https://github.com/cuba-labs/db-per-tenant/blob/master/modules/core/src/com/haulmont/multitenancy/TenantsRoutingDatasource.java) class from this sample to it.
 
 * Open the `spring.xml` file of the `core` module and add the following:
 

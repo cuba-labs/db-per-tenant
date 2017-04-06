@@ -6,7 +6,7 @@ This application demonstrates an approach to implement a multi-tenant applicatio
 
 The implementation is based on the following principles:
 
-* Domain entities are mapped to tables located in an additional data store.
+* Domain entities are mapped to tables located in an additional [data store](https://doc.cuba-platform.com/manual-latest/data_store.html).
 
 * The additional data store is connected to a special routing data source. It determines a database address by a user session attribute, dynamically creates real data sources and dispatches requests to them.
 

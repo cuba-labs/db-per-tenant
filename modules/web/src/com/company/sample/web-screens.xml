@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<screen-config xmlns="http://schemas.haulmont.com/cuba/screens.xsd">
+    <include file="com/company/sample/screens.xml"/>
+    <screen id="sample$Customer.browse"
+            template="com/company/sample/web/customer/customer-browse.xml"/>
+    <screen id="sample$Customer.edit"
+            template="com/company/sample/web/customer/customer-edit.xml"/>
+    <screen id="sample$Order.browse"
+            template="com/company/sample/web/order/order-browse.xml"/>
+    <screen id="sample$Order.edit"
+            template="com/company/sample/web/order/order-edit.xml"/>
+</screen-config>

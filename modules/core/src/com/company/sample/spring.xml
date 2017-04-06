@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd"
+       xmlns:context="http://www.springframework.org/schema/context">
+    <!-- Annotation-based beans -->
+    <context:component-scan base-package="com.company.sample"/>
+    <bean id="cubaDataSource_tenant"
+          class="com.haulmont.cuba.core.sys.CubaJndiObjectFactoryBean">
+        <property name="jndiNameAppProperty"
+                  value="cuba.dataSourceJndiName_tenant"/>
+        <property name="resourceRef"
+                  value="true"/>
+    </bean>
+    <bean id="entityManagerFactory_tenant"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          lazy-init="false"
+          depends-on="routingDataSource">
+        <property name="persistenceXmlLocation"
+                  value="file:${cuba.dataDir}/tenant-persistence.xml"/>
+        <property name="dataSource"
+                  ref="cubaDataSource_tenant"/>
+        <property name="jpaVendorAdapter"
+                  ref="jpaVendorAdapter"/>
+    </bean>
+    <bean id="transactionManager_tenant"
+          class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory"
+                  ref="entityManagerFactory_tenant"/>
+        <property name="dataSource"
+                  ref="cubaDataSource_tenant"/>
+        <qualifier type="org.springframework.beans.factory.annotation.Qualifier"
+                   value="tenant"/>
+    </bean>
+
+    <!-- Routing datasource to be used for additional data store -->
+    <bean id="routingDataSource"
+          class="com.haulmont.multitenancy.TenantsRoutingDatasource">
+
+        <!-- Name of the app property that contains JNDI name of the additional data store -->
+        <property name="jndiNameAppProperty"
+                  value="cuba.dataSourceJndiName_tenant"/>
+
+        <!-- This prefix will be added to each database address passed to the routing data source.
+            Effectively defines a JDBC driver to use -->
+        <property name="urlPrefix"
+                  value="jdbc:postgresql://"/>
+
+        <!-- Database that will be used if no information about user's database is provided -->
+        <property name="defaultDbAddress"
+                  value="localhost/dbpt_main"/>
+
+        <!-- Name of a user session attribute containing user's database address -->
+        <property name="sessionAttributeName"
+                  value="tenantDbAddress"/>
+
+        <!-- Name of a prototype bean that implements javax.sql.DataSource to route requests to -->
+        <property name="tenantDataSourceBeanName"
+                  value="tenantDataSource"/>
+    </bean>
+
+    <!-- Prototype of a real javax.sql.DataSource implementation to be used by routing data source -->
+    <bean id="tenantDataSource"
+          class="org.apache.commons.dbcp2.BasicDataSource"
+          scope="prototype">
+        <property name="username" value="cuba"/>
+        <property name="password" value="cuba"/>
+        <property name="maxTotal" value="20"/>
+    </bean>
+
+</beans>

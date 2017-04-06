@@ -1,0 +1,33 @@
+<Context>
+    <!-- Database connection -->
+    <Resource driverClassName="org.postgresql.Driver"
+              maxIdle="2"
+              maxTotal="20"
+              maxWaitMillis="5000"
+              name="jdbc/CubaDS"
+              password="cuba"
+              type="javax.sql.DataSource"
+              url="jdbc:postgresql://localhost/dbpt_main"
+              username="cuba"/>
+    <!-- Switch off session serialization -->
+    <Manager pathname=""/>
+    <!--<Resource driverClassName="org.hsqldb.jdbc.JDBCDriver"
+          maxIdle="2"
+          maxTotal="20"
+          maxWaitMillis="5000"
+          name="jdbc/CubaDS"
+          password=""
+          type="javax.sql.DataSource"
+          url="jdbc:hsqldb:hsql://localhost/sample"
+          username="sa"/>-->
+    <!--Data store 'tenant' connection-->
+    <Resource driverClassName="org.postgresql.Driver"
+              maxIdle="2"
+              maxTotal="20"
+              maxWaitMillis="5000"
+              name="jdbc/tenant"
+              password="cuba"
+              type="javax.sql.DataSource"
+              url="jdbc:postgresql://localhost/dbpt_tenant"
+              username="cuba"/>
+</Context>

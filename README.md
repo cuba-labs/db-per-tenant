@@ -22,7 +22,7 @@ The implementation is based on the following principles:
  
 * Now all your persistent entities belong to the additional data store, so when you start the application server next time you'll get a warning about incompatibility between your data model (now using additional data store) and main database still containing tables for entities. Select the *Do not show this dialog again* checkbox and continue by pressing *Run server*.
 
-* At this point a user will not be able to work with your entities in the application because your additional data store points to non-existent database `dbpt_tenant` (rememeber, you have created `dbpt_tenant1` and `dbpt_tenant2`). So when opening an entity screen, the user will get an exeption like `PSQLException: FATAL: database "dbpt_tenant" does not exist`.
+* At this point a user will not be able to work with your entities in the application because your additional data store points to non-existent database `dbpt_tenant` (remember, you have created `dbpt_tenant1` and `dbpt_tenant2`). So when opening an entity screen, the user will get an exception like `PSQLException: FATAL: database "dbpt_tenant" does not exist`.
   
 * Now you should introduce routing of requests to appropriate databases - see the next section.
 
@@ -108,7 +108,7 @@ The implementation is based on the following principles:
     
     Also, create users `u1` and `u2` in groups`Tenant 1` and `Tenant 2` correspondingly.
     
-* Log in as user `u1` and open a domain entity browser. You will see the following messages in `app.log`:
+* Log in as user `u1` (with password `1`) and open a domain entity browser. You will see the following messages in `app.log`:
 
     ```
     ...TenantsRoutingDatasource - Using DB address: localhost/dbpt_tenant1
@@ -116,7 +116,7 @@ The implementation is based on the following principles:
     ```
     Domain entities will be saved in the `dbpt_tenant1` database.
     
-    If you log in as `u2`, you will work with the `dbpt_tenant2` database.
+    If you log in as `u2` (with password `1`), you will work with the `dbpt_tenant2` database.
     
 ## Known Issues and Limitations    
 

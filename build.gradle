@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '6.4.2'
+    ext.cubaVersion = '6.7.4'
     repositories {
         maven {
             url 'https://repo.cuba-platform.com/content/groups/work'
@@ -9,14 +9,9 @@ buildscript {
                 password(rootProject.hasProperty('repoPass') ? rootProject['repoPass'] : 'cuba123')
             }
         }
-        
     }
     dependencies {
         classpath "com.haulmont.gradle:cuba-plugin:$cubaVersion"
-
-        classpath "com.haulmont.cuba:cuba-global:$cubaVersion"
-
-        
     }
 }
 
@@ -43,6 +38,10 @@ cuba {
     ide {
         vcs = 'Git'
     }
+}
+
+dependencies {
+    appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
 }
 
 def postgres = 'org.postgresql:postgresql:9.4.1212'
@@ -200,7 +199,7 @@ task restart(dependsOn: ['stop', ':app-core:deploy', ':app-web:deploy'], descrip
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.1'
+    gradleVersion = '3.4'
 }
 
 apply from: 'extra.gradle'
